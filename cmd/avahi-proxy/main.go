@@ -9,7 +9,6 @@ import (
 	"github.com/godbus/dbus/v5"
 	"github.com/holoplot/go-avahi"
 	"github.com/miekg/dns"
-	"github.com/spf13/cobra"
 )
 
 func handleDnsRequest(w dns.ResponseWriter, r *dns.Msg) {
@@ -82,7 +81,7 @@ func main() {
 	port := 5354
 	server := &dns.Server{Addr: ":" + strconv.Itoa(port), Net: "udp"}
 	log.Printf("Starting at %d\n", port)
-	err = server.ListenAndServe()
+	err := server.ListenAndServe()
 	defer server.Shutdown()
 	if err != nil {
 		log.Fatalf("Failed to start server: %s\n ", err.Error())
