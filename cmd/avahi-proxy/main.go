@@ -45,7 +45,6 @@ func mDNSResolver(fqdn string, rrtype int32) avahi.HostName {
         if err != nil {
                 log.Println("ResolveHostName() failed: %v", err)
         }
-        log.Println("ResolveHostName:", hn.Address)
 
 	return hn
 }
@@ -54,7 +53,6 @@ func parseQuery(m *dns.Msg) {
 	for _, q := range m.Question {
 		switch q.Qtype {
 		case dns.TypeA:
-			log.Printf("IPv4 query for %s\n", q.Name)
 			result := mDNSResolver(q.Name, 0) // 0 integer is ProtoInet (see go-avahi source types.go) 
 			ip := result.Address
 			if ip != "" {
@@ -64,8 +62,7 @@ func parseQuery(m *dns.Msg) {
 				}
 			}
 		case dns.TypeAAAA:
-                        log.Printf("IPv6 query for %s\n", q.Name)
-                        result := mDNSResolver(q.Name, 1) // 1 integer is ProtoInet (see go-avahi source types.go) 
+                        result := mDNSResolver(q.Name, 1) // 1 integer is ProtoInet6 (see go-avahi source types.go) 
                         ip := result.Address
                         if ip != "" {
                                 rr, err := dns.NewRR(fmt.Sprintf("%s AAAA %s", q.Name, ip))
