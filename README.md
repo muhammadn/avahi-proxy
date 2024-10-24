@@ -2,6 +2,8 @@
 
 This was to solve the problem in trying to proxy all my local "home.lan" domain to Multicast DNS ".local" domain.
 
+Problem was all existing solutions are eiher written in scripting languages such as Ruby and Python which are less performant.
+
 So now, everything that is within Multicast DNS ".local" domain is resolvable with "home.lan" as well.
 
 For example, i have a machine which is "muhammads-macbook-pro.local" which resolves with Multicast DNS (MDNS) but i want the host "muhammads-macbook-pro" to be resolvable as "muhammads-macbook-pro.home.lan" as well.
