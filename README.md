@@ -10,7 +10,7 @@ For example, i have a machine which is "muhammads-macbook-pro.local" which resol
 
 This helps with machines like Microsoft Windows,Android and Linux (without avahi installed) which does not have Multicast DNS built-in (thus cannot resolve ".local" TLD)
 
-Another use case is when you want your ".local" DNS to be resolvable across IPSec VPNs or other segmented networks where mDNS reflection is not possible.
+Another use case is when you want your ".local" DNS hosts to be resolvable across IPSec VPNs or other segmented networks where mDNS reflection is not possible.
 
 So you can actually run `dnsmasq` and then upstream any `.home.lan` requests to this multicast dns proxy software and return the IP from multicast `.local`.
 
