@@ -8,7 +8,7 @@ So now, everything that is within Multicast DNS ".local" domain is resolvable wi
 
 For example, i have a machine which is "muhammads-macbook-pro.local" which resolves with Multicast DNS (MDNS) but i want the host "muhammads-macbook-pro" to be resolvable as "muhammads-macbook-pro.home.lan" as well.
 
-This helps with machines like Microsoft Windows which does not have Multicast DNS built-in (thus cannot resolve ".local" TLD)
+This helps with machines like Microsoft Windows,Android and Linux (without avahi installed) which does not have Multicast DNS built-in (thus cannot resolve ".local" TLD)
 
 So you can actually run `dnsmasq` and then upstream any `.home.lan` requests to this multicast dns proxy software and return the IP from multicast `.local`.
 
