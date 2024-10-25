@@ -42,7 +42,7 @@ func mDNSResolver(fqdn string, rrtype int32) avahi.HostName {
 
         hn, err := server.ResolveHostName(avahi.InterfaceUnspec, rrtype, fqdn, rrtype, 0)
         if err != nil {
-                log.Println("ResolveHostName() failed: %v", err)
+                log.Println(fmt.Sprintf("Failed to resolve hostname %s: %s", fqdn, err))
         }
 
 	return hn
