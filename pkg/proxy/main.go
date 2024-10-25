@@ -1,10 +1,10 @@
-package main
+package proxy
 
 import (
 	"fmt"
 	"log"
-	"strconv"
 	"strings"
+	"strconv"
 
 	"github.com/godbus/dbus/v5"
 	"github.com/holoplot/go-avahi"
@@ -73,14 +73,14 @@ func parseQuery(m *dns.Msg) {
 	}
 }
 
-func main() {
+func RunProxy(baseDomain string, port string) {
 	// attach request handler func
-	dns.HandleFunc("home.lan.", handleDnsRequest)
+	dns.HandleFunc(baseDomain, handleDnsRequest)
 
 	// start server
-	port := 5354
-	server := &dns.Server{Addr: ":" + strconv.Itoa(port), Net: "udp"}
-	log.Printf("Starting at %d\n", port)
+	server := &dns.Server{Addr: ":" + port, Net: "udp"}
+	nport, _ := strconv.Atoi(port)
+	log.Printf("Starting at %d\n", nport)
 	err := server.ListenAndServe()
 	defer server.Shutdown()
 	if err != nil {
