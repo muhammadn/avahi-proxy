@@ -19,8 +19,22 @@ server=/home.lan/127.0.0.1#5354
 
 ```
 
-Note: this program runs on port 5354
+Run this program by specifying what is your LAN domain name. 
 
-Disclaimer: This is a prototype to get my network fixed. Just a quick and dirty code to get working, flags like changing `.home.lan` or port to something else is still in a work in progress. I intend to use cobra library for those functionalities.
+Example:
+
+```
+./avahi-proxy run --baseDomain home.lan
+```
+
+depending on what domain you configured for your LAN network.
+
+Also you can specify the port which you want `avahi-proxy` to run on.
+
+example:
+
+```
+./avahi-proxy run --baseDomain home.lan --port 5355
+``` 
 
 Contributions are welcomed.
