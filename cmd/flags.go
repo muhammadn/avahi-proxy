@@ -10,7 +10,7 @@ var runCmd = &cobra.Command{
     Aliases: []string{"r"},
     Short:  "Start running the proxy",
     RunE: func(cmd *cobra.Command, args []string) error {
-        baseDomain, _               := cmd.Flags().GetString("basedomain")
+        baseDomain, _               := cmd.Flags().GetString("baseDomain")
 	port, _                     := cmd.Flags().GetString("port")
 
 	baseDomain = baseDomain + "."
