@@ -19,6 +19,8 @@ server=/home.lan/127.0.0.1#5354
 
 ```
 
+Note: I assume you have Avahi running on Linux with DBus to run this program.
+
 Run this program by specifying what is your LAN domain name. Default port is 5354.
 
 Example:
