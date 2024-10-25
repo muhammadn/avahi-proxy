@@ -57,4 +57,4 @@ Restart=on-failure
 RestartSec=10
 ```
 
-Contributions are welcomed.
+Contributions are welcome.
