@@ -55,7 +55,7 @@ func parseQuery(m *dns.Msg) {
 		       result := mDNSResolver(q.Name, 0) // 0 integer is ProtoInet (see go-avahi source types.go)
 		       ip := result.Address
 		       if ip != "" {
-		               rr, err := dns.NewRR(fmt.Sprintf("%s A %s", q.Name, ip))
+		               rr, err := dns.NewRR(fmt.Sprintf("%s 0 IN A %s", q.Name, ip))
 			       if err == nil {
 			              m.Answer = append(m.Answer, rr)
 			       }
@@ -64,7 +64,7 @@ func parseQuery(m *dns.Msg) {
                        result := mDNSResolver(q.Name, 1) // 1 integer is ProtoInet6 (see go-avahi source types.go)
                        ip := result.Address
                        if ip != "" {
-                               rr, err := dns.NewRR(fmt.Sprintf("%s AAAA %s", q.Name, ip))
+                               rr, err := dns.NewRR(fmt.Sprintf("%s 0 IN AAAA %s", q.Name, ip))
                                if err == nil {
                                       m.Answer = append(m.Answer, rr)
                                }
