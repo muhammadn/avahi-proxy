@@ -19,7 +19,7 @@ server=/home.lan/127.0.0.1#5354
 
 ```
 
-Run this program by specifying what is your LAN domain name. 
+Run this program by specifying what is your LAN domain name. Default port is 5354.
 
 Example:
 
@@ -36,5 +36,21 @@ example:
 ```
 ./avahi-proxy run --baseDomain home.lan --port 5355
 ``` 
+
+Linux systemd configuration example:
+
+```
+[Unit]
+Description=Avahi Multicast-DNS Proxy
+After=network.target
+
+[Service]
+Type=simple
+User=dnsmasq
+Group=nogroup
+ExecStart=/usr/local/bin/avahi-proxy run home.lan
+Restart=on-failure
+RestartSec=10
+```
 
 Contributions are welcomed.
