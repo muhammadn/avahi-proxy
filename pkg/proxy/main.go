@@ -48,30 +48,51 @@ func mDNSResolver(fqdn string, rrtype int32) avahi.HostName {
 	return hn
 }
 
-func parseQuery(m *dns.Msg) {
+func parseQuery(m *dns.Msg) *dns.Msg {
+
 	for _, q := range m.Question {
 	        switch q.Qtype {
 	        case dns.TypeA:
 		       result := mDNSResolver(q.Name, 0) // 0 integer is ProtoInet (see go-avahi source types.go)
+
+		       // return NXDomain if mDNS fails to resolve
+		       if result.Flags == 0 {
+			       m.SetRcode(m, dns.RcodeNameError)
+                               return m
+		       }
+
 		       ip := result.Address
 		       if ip != "" {
-		               rr, err := dns.NewRR(fmt.Sprintf("%s 0 IN A %s", q.Name, ip))
+			       rr, err := dns.NewRR(fmt.Sprintf("%s 0 IN A %s", q.Name, ip))
 			       if err == nil {
 			              m.Answer = append(m.Answer, rr)
+				      return m
 			       }
 		       }
-	               case dns.TypeAAAA:
+
+               case dns.TypeAAAA:
                        result := mDNSResolver(q.Name, 1) // 1 integer is ProtoInet6 (see go-avahi source types.go)
+                       // return NXDomain if mDNS fails to resolve
+		       if result.Flags == 0 {
+                               m.SetRcode(m, dns.RcodeNameError)
+                               return m
+		       }
+
                        ip := result.Address
                        if ip != "" {
                                rr, err := dns.NewRR(fmt.Sprintf("%s 0 IN AAAA %s", q.Name, ip))
                                if err == nil {
                                       m.Answer = append(m.Answer, rr)
+				      return m
                                }
                        }
-	        }
+	        default:
+			break
+		}
 
 	}
+
+	return nil
 }
 
 func RunProxy(baseDomain string, port string) {
