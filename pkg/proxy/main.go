@@ -92,7 +92,8 @@ func parseQuery(m *dns.Msg) *dns.Msg {
 
 	}
 
-	return nil
+        m.SetRcode(m, dns.RcodeNameError)
+        return m
 }
 
 func RunProxy(baseDomain string, port string) {
